@@ -1,5 +1,7 @@
 package com.packt.cardatabase;
 
+import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.packt.cardatabase.domain.Car;
 import com.packt.cardatabase.domain.CarRepository;
+import com.packt.cardatabase.domain.Owner;
+import com.packt.cardatabase.domain.OwnerRepository;
 
 @SpringBootApplication
 public class CardatabaseApplication implements CommandLineRunner{
@@ -17,6 +21,8 @@ public class CardatabaseApplication implements CommandLineRunner{
 
 	@Autowired
 	private CarRepository repository;
+	@Autowired
+    private OwnerRepository orepository;
 	
 	
 	public static void main(String[] args) {
@@ -26,6 +32,12 @@ public class CardatabaseApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		// Add owner objects and save these to db 
+		Owner owner1 = new Owner("John" , "Johnson");
+		Owner owner2 = new  Owner("Mary" , "Robinson");
+		orepository.saveAll(Arrays.asList(owner1, owner2));
+		
 		//save cars to database
 		repository.save(new Car("Ford", "Mustang", "Red", "ADF-1121", 2021,59000));
 		repository.save(new Car("Nissan", "Leaf", "white", "SSJ3002", 2019,29000));
@@ -55,6 +67,7 @@ public class CardatabaseApplication implements CommandLineRunner{
 		for (Car car : repository.findAll()) {
 			logger.info(car.getBrand()+" "+car.getModel());
 		}
+		
 	}
 
 }
