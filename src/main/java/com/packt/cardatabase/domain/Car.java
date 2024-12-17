@@ -13,17 +13,15 @@ import jakarta.persistence.ManyToOne;
 
 public class Car {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String brand, model, color, registerNumber;
 
 	@Column(name = "`year`")
 	private int year;
 	private int price;
-	
-	
+		
 	public Car() {}
-
 
 	public Car(String brand, String model, String color, String registerNumber, int year, int price) {
 		super();
@@ -35,7 +33,7 @@ public class Car {
 		this.price = price;
 	}
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="owner")
+	@JoinColumn(name="ownerid")
 	private Owner owner;
 
 	public long getId() {
