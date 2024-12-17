@@ -1,26 +1,27 @@
 package com.packt.cardatabase.domain;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 
 public class Car {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String brand, model, color, registerNumber;
 
 	@Column(name = "`year`")
 	private int year;
 	private int price;
-	
-	
+		
 	public Car() {}
-
 
 	public Car(String brand, String model, String color, String registerNumber, int year, int price) {
 		super();
@@ -31,7 +32,9 @@ public class Car {
 		this.year = year;
 		this.price = price;
 	}
-
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ownerid")
+	private Owner owner;
 
 	public long getId() {
 		return id;
