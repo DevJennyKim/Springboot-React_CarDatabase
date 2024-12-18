@@ -39,6 +39,7 @@ public class CardatabaseApplication implements CommandLineRunner{
 		// Add owner objects and save these to db 
 		Owner owner1 = new Owner("John" , "Johnson");
 		Owner owner2 = new  Owner("Mary" , "Robinson");
+		
 		orepository.saveAll(Arrays.asList(owner1, owner2));
 		
 		//save cars to database
