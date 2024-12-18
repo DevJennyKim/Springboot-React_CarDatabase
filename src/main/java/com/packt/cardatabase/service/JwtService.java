@@ -13,13 +13,11 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Component
 public class JwtService {
-	static final long EXPIRATIONTIME = 86400000; // 1 day in ms
+	static final long EXPIRATIONTIME = 86400000; 
 	static final String PREFIX = "Bearer";
-	// Generate secret key. Only for the demonstration
-	// You should read it from the application configuration
 	static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-	// Generate JWT token
+
 	public String getToken(String username) {
 		String token = Jwts.builder()
 			  .setSubject(username)
@@ -29,8 +27,6 @@ public class JwtService {
 		return token;
   }
 
-	// Get a token from request Authorization header, 
-	// parse a token and get username
 	public String getAuthUser(HttpServletRequest request) {
 		String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 	
